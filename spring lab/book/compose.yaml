@@ -1,0 +1,18 @@
+version: '16.4'
+
+volumes:
+  postgres-data:
+    driver: local
+  pgadmin-data:
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: admin
+      POSTGRES_DB: book_database
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
