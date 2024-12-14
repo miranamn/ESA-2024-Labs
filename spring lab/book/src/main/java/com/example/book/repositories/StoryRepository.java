@@ -12,5 +12,4 @@ public interface StoryRepository extends JpaRepository<Story, UUID> {
     Optional<Story> findByName(String name);
     boolean existsByGenre(Genre genre);
     boolean existsByAuthorsContaining(Author author);
-
 }

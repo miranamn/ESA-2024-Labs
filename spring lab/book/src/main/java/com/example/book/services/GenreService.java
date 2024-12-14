@@ -4,7 +4,6 @@ import com.example.book.dto.GenreDto;
 import com.example.book.models.Genre;
 import com.example.book.repositories.GenreRepository;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +14,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 @RequiredArgsConstructor
 public class GenreService {
-    @Autowired
     GenreRepository genreRepository;
+
+    @Autowired
+    public GenreService(GenreRepository genreRepository) {
+        this.genreRepository = genreRepository;
+    }
 
     public List<GenreDto> getAllGenres(){
         return genreRepository.findAll().stream()

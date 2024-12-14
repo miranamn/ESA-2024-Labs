@@ -2,8 +2,6 @@ package com.example.book.controllers;
 
 import com.example.book.dto.GenreDto;
 import com.example.book.services.GenreService;
-import jdk.jshell.Snippet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +12,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "api/genres")
 public class GenreController {
-    @Autowired
-    private GenreService genreService;
+    private final GenreService genreService;
+
+    public GenreController(GenreService genreService) {
+        this.genreService = genreService;
+    }
+
     @GetMapping
     public List<GenreDto> getGenres(){
         return genreService.getAllGenres();

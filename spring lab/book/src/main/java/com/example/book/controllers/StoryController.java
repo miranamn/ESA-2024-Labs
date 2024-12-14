@@ -1,8 +1,6 @@
 package com.example.book.controllers;
-import com.example.book.dto.GenreDto;
 import com.example.book.dto.StoryDto;
 import com.example.book.services.StoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +10,11 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "api/stories")
 public class StoryController {
-    @Autowired
-    private StoryService storyService;
+    private final StoryService storyService;
+
+    public StoryController(StoryService storyService) {
+        this.storyService = storyService;
+    }
 
     @GetMapping
     public List<StoryDto> getStories(){

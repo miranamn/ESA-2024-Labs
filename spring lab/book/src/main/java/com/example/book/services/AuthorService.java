@@ -4,7 +4,6 @@ import com.example.book.dto.AuthorDto;
 import com.example.book.models.Author;
 import com.example.book.repositories.AuthorRepository;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +14,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
 @RequiredArgsConstructor
 public class AuthorService {
-    @Autowired
     AuthorRepository authorRepository;
+
+    @Autowired
+    public AuthorService(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     public List<AuthorDto> getAllAuthors(){
         return authorRepository.findAll().stream()
@@ -37,7 +39,7 @@ public class AuthorService {
     @Transactional
     public AuthorDto updateAuthor(UUID id, AuthorDto authorDto) {
         Author author = authorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Genre not found with id: " + id));
+                .orElseThrow(() -> new RuntimeException("Author not found with id: " + id));
 
         author.setName(authorDto.getName());
         author.setNickname(authorDto.getNickname());
