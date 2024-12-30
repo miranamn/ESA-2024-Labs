@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/authors")
+@RequestMapping(
+        value = "api",
+        produces = {"application/xml", "application/json"}
+)
 public class AuthorController {
     private final AuthorService authorService;
 
@@ -17,20 +20,23 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping
-    public List<AuthorDto> getAuthors(){
+    @GetMapping("/author")
+    public @ResponseBody List<AuthorDto> getAuthors(){
         return authorService.getAllAuthors();
     }
-    @PostMapping
-    public AuthorDto addAuthor(@RequestBody AuthorDto author){
+
+    @PostMapping("/author")
+    public @ResponseBody AuthorDto addAuthor(@RequestBody AuthorDto author){
         return authorService.addAuthor(author);
     }
-    @PutMapping("/{id}")
-    public AuthorDto updateAuthor(@PathVariable("id") UUID id, @RequestBody AuthorDto author){
+
+    @PutMapping("/author/{id}")
+    public @ResponseBody AuthorDto updateAuthor(@PathVariable("id") UUID id, @RequestBody AuthorDto author){
         return authorService.updateAuthor(id, author);
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity DeleteAuthor(@PathVariable("id") UUID id){
+
+    @DeleteMapping("/author/{id}")
+    public @ResponseBody ResponseEntity DeleteAuthor(@PathVariable("id") UUID id){
         return authorService.deleteAuthor(id);
     }
 }

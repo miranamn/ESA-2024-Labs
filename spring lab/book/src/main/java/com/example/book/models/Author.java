@@ -2,6 +2,8 @@ package com.example.book.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.LinkedList;
 import java.util.List;

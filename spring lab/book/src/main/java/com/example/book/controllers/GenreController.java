@@ -10,28 +10,35 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping(path = "api/genres")
+@RequestMapping(
+        value = "api",
+        produces = {"application/xml", "application/json"}
+)
 public class GenreController {
+
     private final GenreService genreService;
 
     public GenreController(GenreService genreService) {
         this.genreService = genreService;
     }
 
-    @GetMapping
-    public List<GenreDto> getGenres(){
+    @GetMapping("/genre")
+    public @ResponseBody List<GenreDto> getGenres(){
         return genreService.getAllGenres();
     }
-    @PostMapping
-    public GenreDto addGenre(@RequestBody GenreDto genre){
+
+    @PostMapping("/genre")
+    public @ResponseBody GenreDto addGenre(@RequestBody GenreDto genre){
         return genreService.addGenre(genre);
     }
-    @PutMapping("/{id}")
-    public GenreDto updateGenre(@PathVariable("id") UUID id, @RequestBody GenreDto genre){
+
+    @PutMapping("/genre/{id}")
+    public @ResponseBody GenreDto updateGenre(@PathVariable("id") UUID id, @RequestBody GenreDto genre){
         return genreService.updateGenre(id, genre);
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity DeleteGenre(@PathVariable("id") UUID id){
+
+    @DeleteMapping("/genre/{id}")
+    public @ResponseBody ResponseEntity DeleteGenre(@PathVariable("id") UUID id){
         return genreService.deleteGenre(id);
     }
 }

@@ -8,30 +8,35 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/stories")
+@RequestMapping(
+        value = "api",
+        produces = {"application/xml", "application/json"}
+)
 public class StoryController {
+
     private final StoryService storyService;
 
     public StoryController(StoryService storyService) {
         this.storyService = storyService;
     }
 
-    @GetMapping
-    public List<StoryDto> getStories(){
+    @GetMapping("/story")
+    public @ResponseBody List<StoryDto> getStories(){
         return storyService.getAllStories();
     }
 
-    @PostMapping
-    public StoryDto addStory(@RequestBody StoryDto story){
+    @PostMapping("/story")
+    public @ResponseBody StoryDto addStory(@RequestBody StoryDto story){
         return storyService.addStory(story);
     }
-    @PutMapping("/{id}")
-    public StoryDto updateStory(@PathVariable("id") UUID id, @RequestBody String story){
+
+    @PutMapping("/story/{id}")
+    public @ResponseBody StoryDto updateStory(@PathVariable("id") UUID id, @RequestBody String story){
         return storyService.updateStory(id, story);
     }
 
-    @DeleteMapping("/{id}")
-    ResponseEntity DeleteStory(@PathVariable("id") UUID id){
+    @DeleteMapping("/story/{id}")
+    public @ResponseBody ResponseEntity DeleteStory(@PathVariable("id") UUID id){
         return storyService.deleteStory(id);
     }
 }
