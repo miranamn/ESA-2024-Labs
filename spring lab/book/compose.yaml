@@ -1,9 +1,8 @@
-version: '16.4'
+version: '3.8'
 
 volumes:
-  postgres-data:
+  activemq-data:
     driver: local
-  pgadmin-data:
 
 services:
   postgres:
@@ -16,3 +15,15 @@ services:
       - postgres-data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
+
+  activemq:
+    image: rmohr/activemq:latest
+    container_name: activemq
+    environment:
+      ACTIVEMQ_USER: admin
+      ACTIVEMQ_PASSWORD: admin
+    ports:
+      - "61616:61616"  # JMS
+      - "8161:8161"    # Веб-интерфейс
+    volumes:
+      - activemq-data:/opt/activemq/data
